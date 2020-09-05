@@ -33,6 +33,7 @@ class UserController extends Controller {
         ];
         $carousel = $this->__init_request_api($param);
         $data['carousel'] = null;
+        debug($carousel);
         if ($carousel->status == 200) {
             $data['carousel'] = $carousel->data;
         }
