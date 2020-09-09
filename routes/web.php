@@ -18,3 +18,5 @@ Route::get('/home', 'Frontend\Settings\UserController@index')->name('home');
 
 Route::get('/beranda', 'Frontend\Settings\UserController@index')->name('beranda');
 Route::get('/tentang/{slug}', 'Frontend\Settings\UserController@about')->name('tentang');
+Route::get('/hubungi/{slug}', 'Frontend\Settings\UserController@contact')->name('hubungi');
+Route::get('/konten-detail/{id}', 'Frontend\Settings\UserController@detail')->name('konten-detail');

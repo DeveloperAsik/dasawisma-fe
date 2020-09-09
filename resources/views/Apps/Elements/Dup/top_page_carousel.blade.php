@@ -15,7 +15,7 @@
                         <div class="col-xl-6 col-md-7">
                             <div class="carousel-content">
                                 {!!$values->contents!!}
-                                <a href="#" class="primary-btn black">View More<span class="lnr lnr-arrow-right"></span></a>
+                                <a href="{{$_config_base_url}}/konten-detail/{{$values->id}}" class="primary-btn black">View More<span class="lnr lnr-arrow-right"></span></a>
                             </div>
                         </div>
                     </div>

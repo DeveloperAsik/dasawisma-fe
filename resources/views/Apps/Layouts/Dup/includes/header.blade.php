@@ -7,9 +7,9 @@
             </div>
             <div class="main-menubar d-flex align-items-center">
                 <nav class="hide">
-                    <a href="index.html">Home</a>
-                    <a href="generic.html">Generic</a>
-                    <a href="elements.html">Elements</a>
+                    <a href="{{$_config_base_url}}">Beranda</a>
+                    <a href="{{$_config_base_url}}/tentang/kecamatan-bogor-timur">Tentang kami</a>
+                    <a href="{{$_config_base_url}}/hubungi/kecamatan-bogor-timur">Hubungi kami</a>
                 </nav>
                 <div class="menu-bar"><span class="lnr lnr-menu"></span></div>
             </div>

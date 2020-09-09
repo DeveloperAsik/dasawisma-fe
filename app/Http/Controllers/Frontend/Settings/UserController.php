@@ -44,4 +44,27 @@ class UserController extends Controller {
         return view($this->_config_path_layout . 'Dup.index', $data);
     }
 
+    public function contact() {
+        $data['title_for_layout'] = 'Welcome to orenoproject.com';
+        return view($this->_config_path_layout . 'Dup.index', $data);
+    }
+
+    public function detail($id) {
+        $data['title_for_layout'] = 'Welcome to orenoproject.com';
+        if ($id) {
+            $param = [
+                'uri' => config('app.base_api_uri') . '/fetch/content',
+                'method' => 'GET',
+                'header' => [
+                    'token' => 'EKDgPf6RVvN6YIGYx9Unzdws74xiUAcOVW6r5KaP21bPkko3RmKWEx2MBvUmroalcgE1L1Tmk4YS6pzWXq52ZBGlgj9djTRzHOFM2pSiQOPL8aCCSmUJWaB3JKaTy7ia'
+                ],
+                'body' => [
+                    'id' => $id
+                ]
+            ];
+            $data['detail'] = $this->__init_request_api($param);
+        }
+        return view($this->_config_path_layout . 'Dup.index', $data);
+    }
+
 }
