@@ -1,11 +1,11 @@
-<script src="<?php echo $_path_templates . '/dup/js/vendor/jquery-2.2.4.min.js';?>"></script>
+<script src="<?php echo $_path_templates . '/dup/js/vendor/jquery-2.2.4.min.js'; ?>"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
-<script src="<?php echo $_path_templates . '/dup/js/vendor/bootstrap.min.js';?>"></script>
-<script src="<?php echo $_path_templates . '/dup/js/jquery.ajaxchimp.min.js';?>"></script>
-<script src="<?php echo $_path_templates . '/dup/js/owl.carousel.min.js';?>"></script>
-<script src="<?php echo $_path_templates . '/dup/js/jquery.nice-select.min.js';?>"></script>
-<script src="<?php echo $_path_templates . '/dup/js/jquery.magnific-popup.min.js';?>"></script>
-<script src="<?php echo $_path_templates . '/dup/js/main.js';?>"></script>
+<script src="<?php echo $_path_templates . '/dup/js/vendor/bootstrap.min.js'; ?>"></script>
+<script src="<?php echo $_path_templates . '/dup/js/jquery.ajaxchimp.min.js'; ?>"></script>
+<script src="<?php echo $_path_templates . '/dup/js/owl.carousel.min.js'; ?>"></script>
+<script src="<?php echo $_path_templates . '/dup/js/jquery.nice-select.min.js'; ?>"></script>
+<script src="<?php echo $_path_templates . '/dup/js/jquery.magnific-popup.min.js'; ?>"></script>
+<script src="<?php echo $_path_templates . '/dup/js/main.js'; ?>"></script>
 
 <script src="<?php echo $_path_js . '/base64.js'; ?>" type="text/javascript"></script>
 <script src="<?php echo $_path_js . '/dateFormat.min.js'; ?>" type="text/javascript"></script>
@@ -42,7 +42,11 @@
                         var <?php echo $j; ?> = '<?php echo $n ?>';
                 <?php endforeach; ?>
             <?php endif; ?>
-
+            <?php if (isset($_path_json) && !empty($_path_json)) : ?>
+                    var _path_json = '<?php echo $_path_json; ?>';
+            <?php else: ?>
+                    var _path_json = '';
+            <?php endif; ?>
         <?php endforeach; ?>
     <?php endforeach; ?>
     </script>
@@ -66,7 +70,7 @@
 <!-- load js lib / class / library from controller end here -->
 
 <!-- load global js lib for every controller start here -->
-<?php if ($_path_app_global_js):?>
+<?php if ($_path_app_global_js): ?>
     @include("{$_path_app_global_js}")
 <?php endif; ?>
 <!-- load global js lib for every controller end here -->
