@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\Frontend\Settings;
 
 use App\Http\Controllers\Controller;
+use App\Http\Libraries\Session_Library AS SesLibrary;
 use App\Traits\Api;
 
 /**
@@ -23,13 +24,10 @@ class UserController extends Controller {
 
     public function index() {
         $data['title_for_layout'] = 'Welcome to orenoproject.com';
+
         $param = [
-            'uri' => config('app.base_api_uri') . '/fetch/content?page=1&total=15',
-            'method' => 'GET',
-            'header' => [
-                'token' => 'EKDgPf6RVvN6YIGYx9Unzdws74xiUAcOVW6r5KaP21bPkko3RmKWEx2MBvUmroalcgE1L1Tmk4YS6pzWXq52ZBGlgj9djTRzHOFM2pSiQOPL8aCCSmUJWaB3JKaTy7ia'
-            ],
-            'body' => []
+            'uri' => config('app.base_api_uri') . '/fetch/content?page=1&total=15&token='.SesLibrary::_get('_token'),
+            'method' => 'GET'
         ];
         $carousel = $this->__init_request_api($param);
         $data['carousel'] = null;
