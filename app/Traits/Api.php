@@ -20,11 +20,11 @@ trait Api {
                     'setEncodingType' => false,
                     'verify' => false
                 ];
-                if ($param['header']['token']) {
+                if (isset($param['header']['token']) && !empty($param['header']['token'])) {
                     $headers = ['headers' => ['token' => $param['header']['token']]];
                     $options = array_merge($options, $headers);
                 }
-                if ($param['body']) {
+                if (isset($param['body']) && !empty($param['body'])) {
                     $body = ['body' => \GuzzleHttp\json_encode($param['body'])];
                     $options = array_merge($options, $body);
                 }

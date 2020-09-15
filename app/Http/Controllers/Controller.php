@@ -57,18 +57,35 @@ class Controller extends BaseController {
                 $this->{$key} = $values;
             }
         }
-
-        $param = [
-            'uri' => config('app.base_api_uri') . '/fetch/about',
-            'method' => 'GET',
-            'header' => [
-                'token' => 'EKDgPf6RVvN6YIGYx9Unzdws74xiUAcOVW6r5KaP21bPkko3RmKWEx2MBvUmroalcgE1L1Tmk4YS6pzWXq52ZBGlgj9djTRzHOFM2pSiQOPL8aCCSmUJWaB3JKaTy7ia'
-            ],
-            'body' => []
-        ];
-        $about = $this->__init_request_api($param);
-        if ($about->status == 200) {
-            View::share('_about', $about->data);
+        if (!SesLibrary::_get('_uuid') || SesLibrary::_get('_uuid') == null) {
+            SesLibrary::_set('_uuid', uniqid());
+        }
+        if (!SesLibrary::_get('_token')) {
+            //request token
+            $param = [
+                'uri' => config('app.base_api_uri') . '/generate-token-access?deviceid=' . SesLibrary::_get('_uuid'),
+                'method' => 'GET',
+                'header' => [],
+                'body' => []
+            ];
+            $token = $this->__init_request_api($param);
+            if ($token->status == 200) {
+                SesLibrary::_set('_token', $token->data->token);
+            }
+        }
+        if (SesLibrary::_get('_token')) {
+            $param = [
+                'uri' => config('app.base_api_uri') . '/fetch/about',
+                'method' => 'GET',
+                'header' => [
+                    'token' => SesLibrary::_get('_token')
+                ],
+                'body' => []
+            ];
+            $about = $this->__init_request_api($param);
+            if ($about->status == 200) {
+                View::share('_about', $about->data);
+            }
         }
     }
 
