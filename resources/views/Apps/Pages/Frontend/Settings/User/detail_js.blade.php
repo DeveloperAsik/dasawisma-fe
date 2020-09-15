@@ -3,7 +3,7 @@
         return {
             //main function to initiate the module
             init: function () {
-                fnToaStr('detail js successfully load', 'success', {timeOut: 2000});
+                console.log('detail js successfully load');
             }
         };
     }();
