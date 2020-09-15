@@ -11,7 +11,44 @@
 <script src="<?php echo $_path_js . '/dateFormat.min.js'; ?>" type="text/javascript"></script>
 <script src="<?php echo $_path_libs . '/toastr/build/toastr.min.js'; ?>"></script>
 <script src="<?php echo $_path_libs . '/bodymovin/5.6.5/lottie.js'; ?>"></script>
+<script>
+<?php if (isset($_app_uuid) && !empty($_app_uuid)): ?>
+        var _app_uuid = '<?php echo $_app_uuid; ?>';
+<?php else: ?>
+        var _app_uuid = '';
+<?php endif; ?>
+<?php if (isset($_config_base_url) && !empty($_config_base_url)): ?>
+        var _config_base_url = '<?php echo $_config_base_url; ?>';
+<?php else: ?>
+        var _config_base_url = '';
+<?php endif; ?>
+<?php if (isset($_path_templates) && !empty($_path_templates)): ?>
+        var _config_lib_url = '<?php echo $_path_templates; ?>';
+<?php else: ?>
+        var _config_lib_url = '';
+<?php endif; ?>
+<?php if (isset($_config_img_url) && !empty($_config_img_url)): ?>
+        var _config_img_url = '<?php echo $_config_img_url; ?>';
+<?php else: ?>
+        var _config_img_url = '';
+<?php endif; ?>
 
+<?php if (isset($_token) && !empty($_token)) : ?>
+        var _token = '<?php echo $_token; ?>';
+<?php else: ?>
+        var _token = '';
+<?php endif; ?>
+<?php if (isset($_is_logged_in) && !empty($_is_logged_in)) : ?>
+        var _is_logged_in = '<?php echo $_is_logged_in; ?>';
+<?php else: ?>
+        var _is_logged_in = '';
+<?php endif; ?>
+<?php if (isset($_path_json) && !empty($_path_json)) : ?>
+        var _path_json = '<?php echo $_path_json; ?>';
+<?php else: ?>
+        var _path_json = '';
+<?php endif; ?>
+</script>
 <!-- load system variable to js function start here -->
 <?php if (isset($js_var) && !empty($js_var)): ?>
     <script>
@@ -42,11 +79,7 @@
                         var <?php echo $j; ?> = '<?php echo $n ?>';
                 <?php endforeach; ?>
             <?php endif; ?>
-            <?php if (isset($_path_json) && !empty($_path_json)) : ?>
-                    var _path_json = '<?php echo $_path_json; ?>';
-            <?php else: ?>
-                    var _path_json = '';
-            <?php endif; ?>
+          
         <?php endforeach; ?>
     <?php endforeach; ?>
     </script>
