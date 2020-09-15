@@ -6,6 +6,7 @@
 <script src="<?php echo $_path_templates . '/dup/js/jquery.nice-select.min.js';?>"></script>
 <script src="<?php echo $_path_templates . '/dup/js/jquery.magnific-popup.min.js';?>"></script>
 <script src="<?php echo $_path_templates . '/dup/js/main.js';?>"></script>
+<script src="<?php echo $_path_libs . '/toastr/build/toastr.min.js'; ?>"></script>
 
 <!-- load system variable to js function start here -->
 <?php if (isset($js_var) && !empty($js_var)): ?>
