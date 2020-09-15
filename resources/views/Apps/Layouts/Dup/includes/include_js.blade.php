@@ -6,7 +6,11 @@
 <script src="<?php echo $_path_templates . '/dup/js/jquery.nice-select.min.js';?>"></script>
 <script src="<?php echo $_path_templates . '/dup/js/jquery.magnific-popup.min.js';?>"></script>
 <script src="<?php echo $_path_templates . '/dup/js/main.js';?>"></script>
+
+<script src="<?php echo $_path_js . '/base64.js'; ?>" type="text/javascript"></script>
+<script src="<?php echo $_path_js . '/dateFormat.min.js'; ?>" type="text/javascript"></script>
 <script src="<?php echo $_path_libs . '/toastr/build/toastr.min.js'; ?>"></script>
+<script src="<?php echo $_path_libs . '/bodymovin/5.6.5/lottie.js'; ?>"></script>
 
 <!-- load system variable to js function start here -->
 <?php if (isset($js_var) && !empty($js_var)): ?>
