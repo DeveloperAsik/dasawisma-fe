@@ -63,9 +63,7 @@ class Controller extends BaseController {
             //request token
             $param = [
                 'uri' => config('app.base_api_uri') . '/generate-token-access?deviceid=' . SesLibrary::_get('_uuid'),
-                'method' => 'GET',
-                'header' => [],
-                'body' => []
+                'method' => 'GET'
             ];
             $token = $this->__init_request_api($param);
             if ($token->status == 200) {
@@ -73,11 +71,11 @@ class Controller extends BaseController {
             }
         }
         if (SesLibrary::_get('_token')) {
-            $param = [
+            $param2 = [
                 'uri' => config('app.base_api_uri') . '/fetch/about?token=' . SesLibrary::_get('_token'),
                 'method' => 'GET'
             ];
-            $about = $this->__init_request_api($param);
+            $about = $this->__init_request_api($param2);
             debug($about);
             if ($about->status == 200) {
                 View::share('_about', $about->data);
