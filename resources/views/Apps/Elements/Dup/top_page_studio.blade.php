@@ -10,9 +10,11 @@
             </div>
             <div class="col-md-8 col-sm-6">
                 <div class="studio-content">
+                    @if($_about)
                     <h2>{{$_about->title}}</h2>
                     {!!$_about->description!!}
                     <a href="{{$_about->link_homepage}}" class="primary-btn">View More<span class="lnr lnr-arrow-right"></span></a>
+                    @endif
                 </div>
             </div>
         </div>
