@@ -21,7 +21,7 @@
         <div class="row">
             <div class="col-lg-3 col-sm-6">
                 <div class="single-footer-widget">
-                    <h6 class="text-white text-uppercase mb-20">Laporan publik</h6>
+                    <h6 class="text-uppercase mb-20">Laporan publik</h6>
                     <ul class="footer-nav">
                         <li><a href="#">Laporan Data Keluarga</a></li>
                         <li><a href="#">Laporan Data Rumah tinggal</a></li>
@@ -32,7 +32,7 @@
             </div>
             <div class="col-lg-3 col-sm-6">
                 <div class="single-footer-widget">
-                    <h6 class="text-white text-uppercase mb-20">Tautan</h6>
+                    <h6 class="text-uppercase mb-20">Tautan</h6>
                     <ul class="footer-nav">
                         <li><a href="https://kotabogor.go.id/">Kota Bogor</a></li>
                         <li><a href="http://www.dinkes.kotabogor.go.id/">Dinas Kesehatan Bogor</a></li>
@@ -43,7 +43,7 @@
             </div>
             <div class="col-lg-3 col-sm-6">
                 <div class="single-footer-widget">
-                    <h6 class="text-white text-uppercase mb-20">Navigation Links</h6>
+                    <h6 class="text-uppercase mb-20">Navigation Links</h6>
                     <ul class="footer-nav">
                         <li><a href="#">Works & Builders</a></li>
                         <li><a href="#">Works & Wordpress</a></li>
@@ -54,7 +54,7 @@
 
             <div class="col-lg-3 col-sm-6">
                 <div class="single-footer-widget">
-                    <h6 class="text-white text-uppercase mb-20">Instafeed</h6>
+                    <h6 class="text-uppercase mb-20">Instafeed</h6>
                     <ul class="instafeed d-flex flex-wrap">
                         <li><img src="<?php echo $_path_templates . '/dup/img/i1.jpg'; ?>" alt=""></li>
                         <li><img src="<?php echo $_path_templates . '/dup/img/i2.jpg'; ?>" alt=""></li>

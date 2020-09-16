@@ -14,7 +14,7 @@
 
 ::selection {
   background-color: #e1edca;
-  color: #fff;
+  color: #282828;
 }
 
 ::-webkit-input-placeholder {
@@ -2486,7 +2486,7 @@ nav a:hover {
 }
 
 .footer-widget-area .footer-nav li a {
-  color: rgba(255, 255, 255, 0.7);
+  color: #282828 !important;
 }
 
 .footer-widget-area .footer-nav li a:hover {
