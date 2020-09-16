@@ -12,6 +12,7 @@ use App\Traits\Api;
 //load custom libraries class
 use App\Http\Libraries\Variables_Library AS VLibrary;
 use App\Http\Libraries\Session_Library AS SesLibrary;
+use App\Http\Libraries\Auth;
 
 class Controller extends BaseController {
 
@@ -59,7 +60,6 @@ class Controller extends BaseController {
         if (!SesLibrary::_get('_uuid') || SesLibrary::_get('_uuid') == null) {
             SesLibrary::_set('_uuid', uniqid());
         }
-        debug(SesLibrary::_get('_token'));
         if (!SesLibrary::_get('_token')) {
             //request token
             $param = [
@@ -70,13 +70,27 @@ class Controller extends BaseController {
             if ($token->status == 200) {
                 SesLibrary::_set('_token', $token->data->token);
             }
+        } else {
+            $param2 = [
+                'uri' => config('app.base_api_uri') . '/validate-token?token=' . SesLibrary::_get('_uuid'),
+                'method' => 'GET'
+            ];
+            $validate_token = $this->__init_request_api($param2);
+            if ($validate_token->status == 200 && $validate_token->data->valid == false) {
+                $param = [
+                    'uri' => config('app.base_api_uri') . '/drop-user-session?token=' . SesLibrary::_get('_token'),
+                    'method' => 'GET'
+                ];
+                $this->__init_request_api($param);
+                SesLibrary::_destroy();
+            }
         }
         if (SesLibrary::_get('_token')) {
-            $param2 = [
+            $param3 = [
                 'uri' => config('app.base_api_uri') . '/fetch/about?token=' . SesLibrary::_get('_token'),
                 'method' => 'GET'
             ];
-            $about = $this->__init_request_api($param2);
+            $about = $this->__init_request_api($param3);
             if ($about->status == 200) {
                 View::share('_about', $about->data);
             }
