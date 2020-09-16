@@ -34,10 +34,8 @@
                 <div class="single-footer-widget">
                     <h6 class="text-uppercase mb-20">Tautan</h6>
                     <ul class="footer-nav">
-                        <li><a href="https://kotabogor.go.id/">Kota Bogor</a></li>
-                        <li><a href="http://www.dinkes.kotabogor.go.id/">Dinas Kesehatan Bogor</a></li>
-                        <li><a href="#">Offered Services</a></li>
-                        <li><a href="#">Latest Portfolio</a></li>
+                        <li><a href="https://kotabogor.go.id/" target="__blank">Kota Bogor</a></li>
+                        <li><a href="http://www.dinkes.kotabogor.go.id/" target="__blank">Dinas Kesehatan Bogor</a></li>
                     </ul>
                 </div>
             </div>
