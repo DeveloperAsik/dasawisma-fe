@@ -12,7 +12,6 @@ use App\Traits\Api;
 //load custom libraries class
 use App\Http\Libraries\Variables_Library AS VLibrary;
 use App\Http\Libraries\Session_Library AS SesLibrary;
-use App\Http\Libraries\Auth AS AuthLibrary;
 
 class Controller extends BaseController {
 
@@ -79,6 +78,7 @@ class Controller extends BaseController {
                 'method' => 'GET'
             ];
             $about = $this->__init_request_api($param);
+            debug($about);
             if ($about->status == 200) {
                 View::share('_about', $about->data);
             }
