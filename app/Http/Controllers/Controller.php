@@ -79,7 +79,6 @@ class Controller extends BaseController {
                 'method' => 'GET'
             ];
             $about = $this->__init_request_api($param);
-            debug($about);
             if ($about->status == 200) {
                 View::share('_about', $about->data);
             }
