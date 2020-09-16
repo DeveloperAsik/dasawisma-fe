@@ -59,6 +59,7 @@ class Controller extends BaseController {
         if (!SesLibrary::_get('_uuid') || SesLibrary::_get('_uuid') == null) {
             SesLibrary::_set('_uuid', uniqid());
         }
+        debug(SesLibrary::_get('_token'));
         if (!SesLibrary::_get('_token')) {
             //request token
             $param = [
