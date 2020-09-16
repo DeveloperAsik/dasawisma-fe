@@ -2,6 +2,7 @@
 <section class="contact-area">
     <div class="container">
         <div class="row">
+            @if(isset($_about) && !empty($_about))
             <div class="col-lg-4 col-md-6">
                 <div class="single-address text-center">
                     <h6>Alamat</h6>
@@ -21,6 +22,7 @@
                     {!!$_about->email!!}
                 </div>
             </div>
+            @endif
         </div>
     </div>
 </section>
