@@ -75,7 +75,7 @@ class Controller extends BaseController {
         }
         if (SesLibrary::_get('_token')) {
             $param = [
-                'uri' => config('app.base_api_uri') . '/fetch/about?token='.SesLibrary::_get('_token'),
+                'uri' => config('app.base_api_uri') . '/fetch/about?token=' . SesLibrary::_get('_token'),
                 'method' => 'GET'
             ];
             $about = $this->__init_request_api($param);
