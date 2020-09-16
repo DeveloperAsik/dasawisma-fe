@@ -99,7 +99,7 @@ class Controller extends BaseController {
         if (SesLibrary::_get('_token')) {
             View::share('_token', SesLibrary::_get('_token'));
         }
-        AuthLibrary::verify_group_permission(\Request::route()->getName());
+        //AuthLibrary::verify_group_permission(\Request::route()->getName());
     }
 
     protected function get_module($id = null) {

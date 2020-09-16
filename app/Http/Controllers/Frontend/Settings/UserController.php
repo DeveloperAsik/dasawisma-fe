@@ -23,13 +23,14 @@ class UserController extends Controller {
     use Api;
 
     public function index() {
-        $data['title_for_layout'] = 'Welcome to orenoproject.com';
+        $data['title_for_layout'] = 'Selamat datang di dasawisma Kota Bogor Kecamtan Bogor Timur';
 
         $param = [
-            'uri' => config('app.base_api_uri') . '/fetch/content?page=1&total=15&token='.SesLibrary::_get('_token'),
+            'uri' => config('app.base_api_uri') . '/fetch/content?page=1&total=15&token=' . SesLibrary::_get('_token'),
             'method' => 'GET'
         ];
         $carousel = $this->__init_request_api($param);
+
         $data['carousel'] = null;
         if ($carousel->status == 200) {
             $data['carousel'] = $carousel->data;
@@ -48,19 +49,16 @@ class UserController extends Controller {
     }
 
     public function detail($id) {
-        $data['title_for_layout'] = 'Welcome to orenoproject.com';
+        $data['title_for_layout'] = 'Selamat datang di dasawisma Kota Bogor Kecamtan Bogor Timur';
         if ($id) {
             $param = [
-                'uri' => config('app.base_api_uri') . '/fetch/content',
-                'method' => 'GET',
-                'header' => [
-                    'token' => 'EKDgPf6RVvN6YIGYx9Unzdws74xiUAcOVW6r5KaP21bPkko3RmKWEx2MBvUmroalcgE1L1Tmk4YS6pzWXq52ZBGlgj9djTRzHOFM2pSiQOPL8aCCSmUJWaB3JKaTy7ia'
-                ],
-                'body' => [
-                    'id' => $id
-                ]
+                'uri' => config('app.base_api_uri') . '/find/content?id=' . $id . '&token=' . SesLibrary::_get('_token'),
+                'method' => 'GET'
             ];
-            $data['detail'] = $this->__init_request_api($param);
+            $detail = $this->__init_request_api($param);
+            if ($detail->status == 200) {
+                $data['detail'] = $detail->data[0];
+            }
         }
         return view($this->_config_path_layout . 'Dup.index', $data);
     }
