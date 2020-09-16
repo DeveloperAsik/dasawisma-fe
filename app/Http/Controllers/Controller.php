@@ -73,13 +73,13 @@ class Controller extends BaseController {
                 SesLibrary::_set('_token', $token->data->token);
             }
         }
-        debug(SesLibrary::_get('_token'));
         if (SesLibrary::_get('_token')) {
             $param = [
                 'uri' => config('app.base_api_uri') . '/fetch/about?token='.SesLibrary::_get('_token'),
                 'method' => 'GET'
             ];
             $about = $this->__init_request_api($param);
+            debug($about);
             if ($about->status == 200) {
                 View::share('_about', $about->data);
             }
