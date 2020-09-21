@@ -30,7 +30,6 @@ class UserController extends Controller {
             'method' => 'GET'
         ];
         $carousel = $this->__init_request_api($param);
-
         $data['carousel'] = null;
         if ($carousel->status == 200) {
             $data['carousel'] = $carousel->data;
