@@ -40,14 +40,14 @@
                 </div>
             </div>
             <div class="col-lg-3 col-sm-6">
-                <div class="single-footer-widget">
+                <!--<div class="single-footer-widget">
                     <h6 class="text-uppercase mb-20">Navigation Links</h6>
                     <ul class="footer-nav">
                         <li><a href="#">Works & Builders</a></li>
                         <li><a href="#">Works & Wordpress</a></li>
                         <li><a href="#">Works & Templates</a></li>
                     </ul>
-                </div>
+                </div>-->
             </div>
 
             <div class="col-lg-3 col-sm-6">
@@ -68,7 +68,7 @@
         </div>
 
         <div class="footer-bottom d-flex justify-content-between align-items-center flex-wrap">
-            <p class="footer-text m-0">Copyright &copy; 2018 All rights reserved   |   This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com/">Colorlib</a></p>
+            <p class="footer-text m-0">Copyright &copy; 2020 All rights reserved   |   This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com/">Colorlib</a></p>
             <div class="footer-social d-flex align-items-center">
                 <a href="#"><i class="fa fa-facebook"></i></a>
                 <a href="#"><i class="fa fa-twitter"></i></a>

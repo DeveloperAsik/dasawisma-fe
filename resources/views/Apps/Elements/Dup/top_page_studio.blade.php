@@ -1,5 +1,5 @@
 <!-- Start studio Area -->
-<section class="section-gap studio-area">
+<section class="section-gap studio-area" >
     <div class="overlay overlay-bg"></div>
     <div class="container">
         <div class="row align-items-center">
@@ -13,7 +13,7 @@
                     @if(isset($_about) && !empty($_about))
                     <h2>{{$_about->title}}</h2>
                     {!!$_about->description!!}
-                    <a href="{{$_about->link_homepage}}" class="primary-btn">View More<span class="lnr lnr-arrow-right"></span></a>
+                    <a href="{{$_about->link_homepage}}" class="primary-btn">Lihat detail<span class="lnr lnr-arrow-right"></span></a>
                     @endif
                 </div>
             </div>
