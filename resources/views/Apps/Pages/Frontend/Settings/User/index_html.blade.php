@@ -4,7 +4,7 @@
             @if(isset($_content_homepage) && !empty($_content_homepage)) 
             <div class="intro--banner">
                 <h1>Selamat datang<br> di Dasawisma<br>Bogor<br>Timur</h1>
-                <button class="cta" data-target_id="2" style="width:200px">Tentang Dasawisma
+                <button class="cta" data-target_id="2" title='klik untuk lihat lebih lanjut...' style="width:200px">Tentang Dasawisma
                     <span class="btn-background"></span>
                 </button>
                 <img src="{{$_content_homepage->image_path}}" alt="{{$_content_homepage->title}}" />
@@ -74,7 +74,7 @@
             @if(isset($_about) && !empty($_about))
             <div class="about--banner">
                 <h2>{!! str_replace(' ', '<br/>',$_about->title) !!}</h2>
-                <a href="/tentang/kecamatan-bogor-timur">Kecamatan Bogor Timur
+                <a href="/tentang/kecamatan-bogor-timur" title='klik untuk lihat lebih lanjut...'>Dasawisma Kecamatan Bogor Timur
                     <span>
                         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 150 118" style="enable-background:new 0 0 150 118;" xml:space="preserve">
                         <g transform="translate(0.000000,118.000000) scale(0.100000,-0.100000)">
