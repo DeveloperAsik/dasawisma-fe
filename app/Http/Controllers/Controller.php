@@ -94,7 +94,19 @@ class Controller extends BaseController {
             if ($about->status == 200) {
                 View::share('_about', $about->data);
             }
+            
+            $param4 = [
+                'uri' => config('app.base_api_uri') . '/fetch/content?token=' . SesLibrary::_get('_token').'&page=1&total=1&keyword=homepage',
+                'method' => 'GET'
+            ];
+            $home_about = $this->__init_request_api($param4);
+            if ($home_about->status == 200) {
+                View::share('_content_homepage', $home_about->data[0]);
+            }
         }
+
+        //init menu value for global's layout
+        $this->_menu();
     }
 
     public function initAuth() {
@@ -108,15 +120,6 @@ class Controller extends BaseController {
             View::share('_token', SesLibrary::_get('_token'));
         }
         //AuthLibrary::verify_group_permission(\Request::route()->getName());
-    }
-
-    protected function get_module($id = null) {
-        $res = array();
-        if ($id != null) {
-            $Tbl_modules = new Tbl_modules();
-            $res = $Tbl_modules->find('first', array('fields' => 'all', 'table_name' => 'tbl_modules', 'conditions' => array('where' => array('a.is_active' => '= "1"', 'a.id' => '= "' . $id . '"'))));
-        }
-        return $res;
     }
 
     public function load_css($class = array()) {
@@ -135,6 +138,43 @@ class Controller extends BaseController {
         if ($values) {
             View::share('load_ajax_var', $values);
         }
+    }
+
+    public function _menu() {
+        $data_menu = (object) array(
+                    array(
+                        'id' => 1,
+                        'type' => 'btn',
+                        'name' => 'Beranda'
+                    ),
+                    array(
+                        'id' => 2,
+                        'type' => 'btn',
+                        'name' => 'Kegiatan'
+                    ),
+                    array(
+                        'id' => 3,
+                        'type' => 'btn',
+                        'name' => 'Tentang'
+                    ),
+                    array(
+                        'id' => 4,
+                        'type' => 'btn',
+                        'name' => 'Hubungi'
+                    ),
+                    array(
+                        'id' => 5,
+                        'type' => 'btn',
+                        'name' => 'Laporan'
+                    ),
+                    array(
+                        'id' => 5,
+                        'type' => 'link',
+                        'name' => 'Login'
+                    )
+        );
+
+        View::share('_menu', $data_menu);
     }
 
 }

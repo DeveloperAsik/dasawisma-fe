@@ -24,22 +24,28 @@ class UserController extends Controller {
 
     public function index() {
         $data['title_for_layout'] = 'Selamat datang di dasawisma Kota Bogor Kecamtan Bogor Timur';
-
-        $param = [
-            'uri' => config('app.base_api_uri') . '/fetch/content?page=1&total=15&token=' . SesLibrary::_get('_token'),
-            'method' => 'GET'
-        ];
-        $carousel = $this->__init_request_api($param);
-        $data['carousel'] = null;
-        if ($carousel->status == 200) {
-            $data['carousel'] = $carousel->data;
-        }
-        return view($this->_config_path_layout . 'Dup.index', $data);
+        return view($this->_config_path_layout . 'Global.index', $data);
     }
 
     public function about() {
         $data['title_for_layout'] = 'Welcome to orenoproject.com';
-        return view($this->_config_path_layout . 'Dup.index', $data);
+        $param = [
+            'uri' => config('app.base_api_uri') . '/fetch/content?page=1&total=25&token=' . SesLibrary::_get('_token'),
+            'method' => 'GET'
+        ];
+        $carousel = $this->__init_request_api($param);
+        //category_id
+        $data['carousel'] = null;
+        if ($carousel->status == 200) {
+            $arr_result = array();
+            foreach ($carousel->data AS $key => $values) {
+                if ($values->category_id == 2) {
+                    $arr_result[] = $values;
+                }
+            }
+            $data['carousel'] = $arr_result;
+        }
+        return view($this->_config_path_layout . 'Global.index', $data);
     }
 
     public function contact() {
