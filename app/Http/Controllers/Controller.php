@@ -8,7 +8,6 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 //load laravel feature
 use View;
-use App\Traits\Api;
 //load custom libraries class
 use App\Http\Libraries\Variables_Library AS VLibrary;
 use App\Http\Libraries\Session_Library AS SesLibrary;
@@ -18,8 +17,7 @@ class Controller extends BaseController {
 
     use AuthorizesRequests,
         DispatchesJobs,
-        ValidatesRequests,
-        Api;
+        ValidatesRequests;
 
     public function __construct() {
         $this->initVar();
@@ -57,6 +55,7 @@ class Controller extends BaseController {
                 $this->{$key} = $values;
             }
         }
+        
         if (!SesLibrary::_get('_uuid') || SesLibrary::_get('_uuid') == null) {
             SesLibrary::_set('_uuid', uniqid());
         }
@@ -67,7 +66,7 @@ class Controller extends BaseController {
                 'method' => 'GET'
             ];
             $token = $this->__init_request_api($param);
-            if ($token->status == 200) {
+            if ($token && $token->status == 200) {
                 SesLibrary::_set('_token', $token->data->token);
             }
         } else {

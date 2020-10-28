@@ -12,8 +12,8 @@
 <script src="<?php echo $_path_js . '/dateFormat.min.js'; ?>" type="text/javascript"></script>
 <script src="<?php echo $_path_libs . '/toastr/build/toastr.min.js'; ?>"></script>
 <script src="<?php echo $_path_libs . '/bodymovin/5.6.5/lottie.js'; ?>"></script>
+<script src="<?php echo $_path_libs . '/ckeditor/ckeditor.js';?>"></script>
 <!-- END PAGE LEVEL PLUGINS -->
-
 <!--render global variable from session's-->
 <script>
 <?php if (isset($_app_uuid) && !empty($_app_uuid)): ?>
@@ -26,6 +26,11 @@
 <?php else: ?>
         var _config_base_url = '';
 <?php endif; ?>
+<?php if (isset($_config_api_base_url) && !empty($_config_api_base_url)):  ?>
+        var _config_api_base_url = '<?php echo $_config_api_base_url; ?>';
+<?php else: ?>
+        var _config_api_base_url = '';
+<?php endif; ?>
 <?php if (isset($_path_templates) && !empty($_path_templates)): ?>
         var _config_lib_url = '<?php echo $_path_templates; ?>';
 <?php else: ?>
@@ -36,7 +41,6 @@
 <?php else: ?>
         var _config_img_url = '';
 <?php endif; ?>
-
 <?php if (isset($_token) && !empty($_token)) : ?>
         var _token = '<?php echo $_token; ?>';
 <?php else: ?>

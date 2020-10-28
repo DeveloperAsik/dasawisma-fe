@@ -1,8 +1,8 @@
 <!-- BEGIN JAVASCRIPTS(Load javascripts at bottom, this will reduce page load time) -->
 <!-- BEGIN CORE PLUGINS -->
 <!--[if lt IE 9]>
-<script src="<?php //echo $_path_templates        ?>/metronic/assets/global/plugins/respond.min.js"></script>
-<script src="<?php //echo $_path_templates        ?>/metronic/assets/global/plugins/excanvas.min.js"></script> 
+<script src="<?php //echo $_path_templates         ?>/metronic/assets/global/plugins/respond.min.js"></script>
+<script src="<?php //echo $_path_templates         ?>/metronic/assets/global/plugins/excanvas.min.js"></script> 
 <![endif]-->
 <script src="<?php echo $_path_templates ?>/metronic/assets/global/plugins/jquery.min.js" type="text/javascript"></script>
 <script src="<?php echo $_path_templates ?>/metronic/assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
@@ -35,6 +35,11 @@
         var _config_base_url = '<?php echo $_config_base_url; ?>';
 <?php else: ?>
         var _config_base_url = '';
+<?php endif; ?>
+<?php if (isset($_config_api_base_url) && !empty($_config_api_base_url)): ?>
+        var _config_api_base_url = '<?php echo $_config_api_base_url; ?>';
+<?php else: ?>
+        var _config_api_base_url = '';
 <?php endif; ?>
 <?php if (isset($_path_templates) && !empty($_path_templates)): ?>
         var _config_lib_url = '<?php echo $_path_templates; ?>';
@@ -110,20 +115,20 @@
 <script src="<?php echo $_path_templates ?>/metronic/assets/global/scripts/metronic.js" type="text/javascript"></script>
 <!-- END PAGE LEVEL SCRIPTS -->
 <script>
-    jQuery(document).ready(function () {
-        Metronic.init(); // init metronic core components
-        // init background slide images
-        $.backstretch([
-            "<?php echo $_path_templates ?>/metronic/assets/admin/pages/media/bg/1.jpg",
-            "<?php echo $_path_templates ?>/metronic/assets/admin/pages/media/bg/2.jpg",
-            "<?php echo $_path_templates ?>/metronic/assets/admin/pages/media/bg/3.jpg",
-            "<?php echo $_path_templates ?>/metronic/assets/admin/pages/media/bg/4.jpg"
-        ], {
-            fade: 1000,
-            duration: 8000
-        }
-        );
-    });
+            jQuery(document).ready(function () {
+                Metronic.init(); // init metronic core components
+                // init background slide images
+                $.backstretch([
+                    "<?php echo $_path_templates ?>/metronic/assets/admin/pages/media/bg/1.jpg",
+                    "<?php echo $_path_templates ?>/metronic/assets/admin/pages/media/bg/2.jpg",
+                    "<?php echo $_path_templates ?>/metronic/assets/admin/pages/media/bg/3.jpg",
+                    "<?php echo $_path_templates ?>/metronic/assets/admin/pages/media/bg/4.jpg"
+                ], {
+                    fade: 1000,
+                    duration: 8000
+                }
+                );
+            });
 </script>
 <!-- END JAVASCRIPTS -->
 

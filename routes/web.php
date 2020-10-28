@@ -16,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', 'Frontend\Settings\UserController@index')->name('/');
 Route::get('/home', 'Frontend\Settings\UserController@index')->name('home');
 
-Route::get('/beranda', 'Frontend\Settings\UserController@index')->name('beranda');
+Route::get('/beranda', 'Frontend\Settings\UserController@beranda')->name('beranda');
 Route::get('/tentang/{slug}', 'Frontend\Settings\UserController@about')->name('tentang');
-Route::get('/hubungi/{slug}', 'Frontend\Settings\UserController@contact')->name('hubungi');
+//Route::get('/hubungi/{slug}', 'Frontend\Settings\UserController@contact')->name('hubungi');
 Route::get('/konten-detail/{id}', 'Frontend\Settings\UserController@detail')->name('konten-detail');
+
+
+//Route::post('/save-token', 'Backend\Settings\UserController@save_token')->name('save-token');
+Route::post('/save-token')->middleware('oreno.auth');
+Route::post('/logout')->middleware('oreno.logout');

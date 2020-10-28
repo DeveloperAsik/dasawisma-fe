@@ -18,36 +18,33 @@
     </li>
     <li class="l-section section">
         <div class="work">
-            <h2>Selected work</h2>
             <div class="work--lockup">
                 <ul class="slider">
-                    <li class="slider--item slider--item-left">
-                        <a href="#0">
-                            <div class="slider--item-image">
-                                <img src="<?php echo $_path_templates ?>/global/img/work-victory.jpg" alt="Victory">
-                            </div>
-                            <p class="slider--item-title">Victory</p>
-                            <p class="slider--item-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do.</p>
-                        </a>
-                    </li>
-                    <li class="slider--item slider--item-center">
-                        <a href="#0">
-                            <div class="slider--item-image">
-                                <img src="<?php echo $_path_templates ?>/global/img/work-metiew-smith.jpg" alt="Metiew and Smith">
-                            </div>
-                            <p class="slider--item-title">Metiew &amp; Smith</p>
-                            <p class="slider--item-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do.</p>
-                        </a>
-                    </li>
-                    <li class="slider--item slider--item-right">
-                        <a href="#0">
-                            <div class="slider--item-image">
-                                <img src="<?php echo $_path_templates ?>/global/img/work-alex-nowak.jpg" alt="Alex Nowak">
-                            </div>
-                            <p class="slider--item-title">Alex Nowak</p>
-                            <p class="slider--item-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do.</p>
-                        </a>
-                    </li>
+                    @if(isset($carousel) && !empty($carousel))
+                    @php $position = 'left'; @endphp
+                    @php $i=1; @endphp
+                        @foreach($carousel AS $key => $value)
+                        @php
+                            if($i == 1){
+                                $position = 'left';
+                            }elseif($i == 2){
+                                $position = 'center';
+                            }else{
+                                $position = 'right';
+                            }
+                        @endphp
+                            <li class="slider--item slider--item-{{$position}}">
+                                <a class="cta" data-target_id="2" href="#">
+                                    <div class="slider--item-image">
+                                        <img src="{{ $_path_images . $value->image_path }}" alt="{{ $value->title }}">
+                                    </div>
+                                </a>
+                            </li>
+                        @php $i++; @endphp
+                        @php if($i==4) $i=1; @endphp
+                        @endforeach
+                    @endif
+                    
                 </ul>
                 <div class="slider--prev">
                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -222,16 +219,19 @@
                             <div class="information-name">
                                 <label for="name">Surel/ID Kader/Nama Pengguna</label><br/>
                                 <input id="fname" type="text" name="userid" spellcheck="false">
+                                <span class="info-userid"></span>
                             </div><br/>
                             <div class="information-name">
                                 <label for="name">Kata Sandi</label><br/>
                                 <input id="password" name="password" type="text" spellcheck="false">
+                                <span class="info-password"></span>
                             </div><br/> 
                             <div class="information-name">
                                 <label for="name">Masukkan Ulang Kata Sandi</label><br/>
                                 <input id="repassword" name="password2" type="text" spellcheck="false">
+                                <span class="info-password2"></span>
                             </div><br/> 
-                            <button type="submit" style="color:#282828">Login</button>
+                            <button type="submit" style="color:#282828;width:150px;">Masuk</button>
                         </form>
                     </div>
                 </div>

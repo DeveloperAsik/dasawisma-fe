@@ -47,6 +47,7 @@ class Variables_Library {
             '_config_path_layout' => 'Apps.Layouts.',
             '_config_path_app_view' => 'Apps.Pages.',
             '_config_base_url' => url('/'),
+            '_config_api_base_url' => config('app.base_api_uri'),
             '_config_full_url' => \Request::fullUrl()
         ]);
     }
