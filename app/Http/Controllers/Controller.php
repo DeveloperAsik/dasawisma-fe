@@ -11,13 +11,14 @@ use View;
 //load custom libraries class
 use App\Http\Libraries\Variables_Library AS VLibrary;
 use App\Http\Libraries\Session_Library AS SesLibrary;
-use App\Http\Libraries\Auth;
+use App\Traits\Api;
 
 class Controller extends BaseController {
 
     use AuthorizesRequests,
         DispatchesJobs,
-        ValidatesRequests;
+        ValidatesRequests,
+        Api;
 
     public function __construct() {
         $this->initVar();
@@ -55,23 +56,20 @@ class Controller extends BaseController {
                 $this->{$key} = $values;
             }
         }
-        
+
         if (!SesLibrary::_get('_uuid') || SesLibrary::_get('_uuid') == null) {
             SesLibrary::_set('_uuid', uniqid());
         }
-        if (!SesLibrary::_get('_token')) {
+        //dd(SesLibrary::_get('_token'));
+        if (!SesLibrary::_get('_token') || SesLibrary::_get('_token') == null) {
             //request token
-            $param = [
-                'uri' => config('app.base_api_uri') . '/generate-token-access?deviceid=' . SesLibrary::_get('_uuid'),
-                'method' => 'GET'
-            ];
-            $token = $this->__init_request_api($param);
+            $token = $this->generate_token();
             if ($token && $token->status == 200) {
                 SesLibrary::_set('_token', $token->data->token);
             }
         } else {
             $param2 = [
-                'uri' => config('app.base_api_uri') . '/validate-token?token=' . SesLibrary::_get('_uuid'),
+                'uri' => config('app.base_api_uri') . '/validate-token?token=' . SesLibrary::_get('_token'),
                 'method' => 'GET'
             ];
             $validate_token = $this->__init_request_api($param2);
@@ -81,6 +79,8 @@ class Controller extends BaseController {
                     'method' => 'GET'
                 ];
                 $this->__init_request_api($param);
+                $token = $this->generate_token();
+                SesLibrary::_set('_token', uniqid());
                 SesLibrary::_destroy();
             }
         }
@@ -93,9 +93,9 @@ class Controller extends BaseController {
             if ($about->status == 200) {
                 View::share('_about', $about->data);
             }
-            
+
             $param4 = [
-                'uri' => config('app.base_api_uri') . '/fetch/content?token=' . SesLibrary::_get('_token').'&page=1&total=1&keyword=homepage',
+                'uri' => config('app.base_api_uri') . '/fetch/content?token=' . SesLibrary::_get('_token') . '&page=1&total=1&keyword=1',
                 'method' => 'GET'
             ];
             $home_about = $this->__init_request_api($param4);
@@ -106,6 +106,17 @@ class Controller extends BaseController {
 
         //init menu value for global's layout
         $this->_menu();
+    }
+
+    public function generate_token() {
+        $param = [
+            'uri' => config('app.base_api_uri') . '/generate-token-access?deviceid=' . SesLibrary::_get('_uuid'),
+            'method' => 'GET'
+        ];
+        $token = $this->__init_request_api($param);
+        if ($token && $token->status == 200) {
+            SesLibrary::_set('_token', $token->data->token);
+        }
     }
 
     public function initAuth() {
