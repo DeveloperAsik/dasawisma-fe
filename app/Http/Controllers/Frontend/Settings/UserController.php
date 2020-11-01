@@ -54,6 +54,7 @@ class UserController extends Controller {
             'method' => 'GET'
         ];
         $types = $this->__init_request_api($param_type);
+        dd($types);
         if ($types && $types->status == 200) {
             $data['types'] = $types->data;
         }

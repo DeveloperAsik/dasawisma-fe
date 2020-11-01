@@ -72,7 +72,6 @@ class Controller extends BaseController {
                 'method' => 'GET'
             ];
             $validate_token = $this->__init_request_api($param2);
-            dd($validate_token);
             if ($validate_token->status == 200 && $validate_token->data->valid == false) {
                 $param = [
                     'uri' => config('app.base_api_uri') . '/drop-user-session?token=' . SesLibrary::_get('_token'),
