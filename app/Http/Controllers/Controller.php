@@ -60,7 +60,7 @@ class Controller extends BaseController {
         if (!SesLibrary::_get('_uuid') || SesLibrary::_get('_uuid') == null) {
             SesLibrary::_set('_uuid', uniqid());
         }
-        //dd(SesLibrary::_get('_token'));
+        dd(SesLibrary::_get('_token'));
         if (!SesLibrary::_get('_token') || SesLibrary::_get('_token') == null) {
             //request token
             $token = $this->generate_token();
