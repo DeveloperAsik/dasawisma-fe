@@ -34,14 +34,14 @@
                             setTimeout(function () {
                                 //loadingImg('destroy');
                                 console.log('harusnya redirect');
-                                window.location = _config_base_url + '/beranda';
+                                window.location.href = _config_base_url + '/beranda';
                             }, 2000);
                             return false;
                         } else {
                             setTimeout(function () {
                                 //loadingImg('destroy');
                                 console.log('harusnya redirect');
-                                window.location = _config_base_url + '/logout';
+                                window.location.href = _config_base_url + '/logout';
                             }, 2500);
                             return false;
                         }

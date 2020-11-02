@@ -1,6 +1,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="<?php echo $_path_templates ?>/global/js/vendor/jquery-2.2.4.min.js"><\/script>')</script>
-<script src="<?php echo $_path_templates ?>/global/js/functions-min.js"></script>
 
 <script src="<?php echo $_path_templates ?>/metronic/assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
 <script src="<?php echo $_path_templates ?>/metronic/assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
@@ -12,7 +11,7 @@
 <script src="<?php echo $_path_js . '/dateFormat.min.js'; ?>" type="text/javascript"></script>
 <script src="<?php echo $_path_libs . '/toastr/build/toastr.min.js'; ?>"></script>
 <script src="<?php echo $_path_libs . '/bodymovin/5.6.5/lottie.js'; ?>"></script>
-<script src="<?php echo $_path_libs . '/ckeditor/ckeditor.js';?>"></script>
+<script src="<?php echo $_path_libs . '/ckeditor/ckeditor.js'; ?>"></script>
 <!-- END PAGE LEVEL PLUGINS -->
 <!--render global variable from session's-->
 <script>
@@ -26,7 +25,7 @@
 <?php else: ?>
         var _config_base_url = '';
 <?php endif; ?>
-<?php if (isset($_config_api_base_url) && !empty($_config_api_base_url)):  ?>
+<?php if (isset($_config_api_base_url) && !empty($_config_api_base_url)): ?>
         var _config_api_base_url = '<?php echo $_config_api_base_url; ?>';
 <?php else: ?>
         var _config_api_base_url = '';
@@ -109,6 +108,9 @@
         <script src="<?php echo $_path_templates . $values ?>" type="text/javascript"></script>
     <?php endforeach; ?>
 <?php endif; ?>
+
+<script src="<?php echo $_path_templates ?>/global/js/functions.js"></script>
+
 <!-- load js lib / class / library from controller end here -->
 <!-- load global js lib for every controller start here -->
 <?php if ($_path_app_global_js): ?>

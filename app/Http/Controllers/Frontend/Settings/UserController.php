@@ -11,6 +11,7 @@ namespace App\Http\Controllers\Frontend\Settings;
 use App\Http\Controllers\Controller;
 use App\Http\Libraries\Session_Library AS SesLibrary;
 use App\Traits\Api;
+use App\Http\Middleware\OrenoAuth;
 
 /**
  * Description of UserController
@@ -57,7 +58,7 @@ class UserController extends Controller {
         if ($types && $types->status == 200) {
             $data['types'] = $types->data;
         }
-        
+
         //report-level
         $param_level = [
             'uri' => config('app.base_api_uri') . '/fetch/report-level?page=1&total=25&token=' . SesLibrary::_get('_token'),
@@ -67,7 +68,7 @@ class UserController extends Controller {
         if ($level && $level->status == 200) {
             $data['level'] = $level->data;
         }
-        
+
         //provinces
         $param_provinces = [
             'uri' => config('app.base_api_uri') . '/fetch/provinces?page=1&total=25&token=' . SesLibrary::_get('_token'),
@@ -121,6 +122,17 @@ class UserController extends Controller {
         }
 
         return view($this->_config_path_layout . 'Dup.index', $data);
+    }
+
+    public function logout() {
+        OrenoAuth::logout();
+        $param = [
+            'uri' => config('app.base_api_uri') . '/drop-user-session?token=' . SesLibrary::_get('_token'),
+            'method' => 'GET'
+        ];
+        $this->__init_request_api($param);
+        SesLibrary::_get('_token');
+        return redirect()->route('/');
     }
 
 }

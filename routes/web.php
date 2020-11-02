@@ -23,5 +23,5 @@ Route::get('/konten-detail/{id}', 'Frontend\Settings\UserController@detail')->na
 
 
 //Route::post('/save-token', 'Backend\Settings\UserController@save_token')->name('save-token');
-Route::post('/save-token')->middleware('oreno.auth');
-Route::post('/logout')->middleware('oreno.logout');
+Route::post('/save-token')->middleware('oreno.auth')->name('oreno.auth');
+Route::get('/logout', 'Frontend\Settings\UserController@logout')->name('logout');

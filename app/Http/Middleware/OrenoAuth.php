@@ -46,7 +46,7 @@ class OrenoAuth {
                 'uri' => config('app.base_api_uri') . '/user-details?token=' . $token,
                 'method' => 'GET'
             ];
-            $user = $this->Api->__init_request_api($param);
+            $user = Api::__init_request_api($param);
             SesLibrary::_set('_is_logged_in', true);
             SesLibrary::_set('_user_logged_in', $user->data);
             SesLibrary::_set('_token', $token);
@@ -55,11 +55,15 @@ class OrenoAuth {
             return $token;
         }
     }
-    
-    
-    public function logout(){
+
+    public static function logout() {
         $token = SesLibrary::_get('_token');
-        dd($token);
+        $result = false;
+        if ($token) {
+            $result = SesLibrary::_destroy();
+        }
+        $response_data = array('status' => 200, 'message' => 'Successfully logout', 'data' => array('response' => $result));
+        return response()->json($response_data, 200);
     }
 
 }

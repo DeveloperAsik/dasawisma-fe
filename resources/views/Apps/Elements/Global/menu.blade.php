@@ -7,7 +7,7 @@
                 @else
                     @php $active = ''; @endphp
                 @endif
-                <li class="{{$active}}"><span>{{$value['name']}}</span></li>
+                <li class="{{$active}}" data-key="{{ $key }}" ><span>{{$value['name']}}</span></li>
             @endforeach
         @endif
     @elseif($page == 'about')

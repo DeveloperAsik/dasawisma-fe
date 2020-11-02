@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
 //load laravel feature
 use View;
 //load custom libraries class
@@ -20,12 +21,13 @@ class Controller extends BaseController {
         ValidatesRequests,
         Api;
 
-    public function __construct() {
-        $this->initVar();
+    public function __construct(Request $request) {
+        $this->initVar($request);
         $this->initAuth();
+        $this->initRoute($request);
     }
 
-    public function initVar() {
+    public function initVar($request) {
         $conf = VLibrary::init();
         if ($conf['PATH']) {
             foreach ($conf['PATH'] AS $key => $values) {
@@ -71,19 +73,22 @@ class Controller extends BaseController {
                 'uri' => config('app.base_api_uri') . '/validate-token?token=' . SesLibrary::_get('_token'),
                 'method' => 'GET'
             ];
-            $validate_token = $this->__init_request_api($param2);
-            if ($validate_token->status == 200 && $validate_token->data->valid == false) {
-                $param = [
-                    'uri' => config('app.base_api_uri') . '/drop-user-session?token=' . SesLibrary::_get('_token'),
-                    'method' => 'GET'
-                ];
-                $this->__init_request_api($param);
-                $token = $this->generate_token();
-                SesLibrary::_set('_token', uniqid());
-                SesLibrary::_destroy();
+            if (SesLibrary::_get('_is_logged_in')) {
+                $validate_token = $this->__init_request_api($param2);
+                if ($validate_token->status == 200 && $validate_token->data->valid == false) {
+                    $param = [
+                        'uri' => config('app.base_api_uri') . '/drop-user-session?token=' . SesLibrary::_get('_token'),
+                        'method' => 'GET'
+                    ];
+                    $this->__init_request_api($param);
+                    $token = $this->generate_token();
+                    SesLibrary::_set('_token', uniqid());
+                    SesLibrary::_destroy();
+                }
             }
         }
         if (SesLibrary::_get('_token')) {
+            View::share('_token', SesLibrary::_get('_token'));
             $param3 = [
                 'uri' => config('app.base_api_uri') . '/fetch/about?token=' . SesLibrary::_get('_token'),
                 'method' => 'GET'
@@ -107,6 +112,14 @@ class Controller extends BaseController {
         $this->_menu();
     }
 
+    public function initRoute($request = null) {
+        if ($request != null && $request->getRequestUri() == '/beranda' && SesLibrary::_get('_token')) {
+            return true;
+        } else {
+            return redirect()->route('/');
+        }
+    }
+
     public function generate_token() {
         $param = [
             'uri' => config('app.base_api_uri') . '/generate-token-access?deviceid=' . SesLibrary::_get('_uuid'),
@@ -128,7 +141,15 @@ class Controller extends BaseController {
         if (SesLibrary::_get('_token')) {
             View::share('_token', SesLibrary::_get('_token'));
         }
-        //AuthLibrary::verify_group_permission(\Request::route()->getName());
+        $param = [
+            'uri' => config('app.base_api_uri') . '/is-logged-in?token=' . SesLibrary::_get('_token'),
+            'method' => 'GET'
+        ];
+        $is_logged_in = $this->__init_request_api($param);
+        if ($is_logged_in->status == 200) {
+            SesLibrary::_set('_is_logged_in', $is_logged_in->data->logged_in);
+            View::share('_is_logged_in', $is_logged_in->data->logged_in);
+        }
     }
 
     public function load_css($class = array()) {
@@ -150,40 +171,45 @@ class Controller extends BaseController {
     }
 
     public function _menu() {
-        $data_menu = (object) array(
-                    array(
-                        'id' => 1,
-                        'type' => 'btn',
-                        'name' => 'Beranda'
-                    ),
-                    array(
-                        'id' => 2,
-                        'type' => 'btn',
-                        'name' => 'Kegiatan'
-                    ),
-                    array(
-                        'id' => 3,
-                        'type' => 'btn',
-                        'name' => 'Tentang'
-                    ),
-                    array(
-                        'id' => 4,
-                        'type' => 'btn',
-                        'name' => 'Hubungi'
-                    ),
-                    array(
-                        'id' => 5,
-                        'type' => 'btn',
-                        'name' => 'Laporan'
-                    ),
-                    array(
-                        'id' => 5,
-                        'type' => 'link',
-                        'name' => 'Login'
-                    )
+        $data_menu = array(
+            array(
+                'id' => 1,
+                'type' => 'btn',
+                'name' => 'Beranda'
+            ),
+            array(
+                'id' => 2,
+                'type' => 'btn',
+                'name' => 'Kegiatan'
+            ),
+            array(
+                'id' => 3,
+                'type' => 'btn',
+                'name' => 'Tentang'
+            ),
+            array(
+                'id' => 4,
+                'type' => 'btn',
+                'name' => 'Hubungi'
+            ),
+            array(
+                'id' => 5,
+                'type' => 'btn',
+                'name' => 'Laporan'
+            ),
+            array(
+                'id' => 5,
+                'type' => 'link',
+                'name' => 'Login'
+            )
         );
-
-        View::share('_menu', $data_menu);
+        if (SesLibrary::_get('_token')) {
+            $data_menu[5] = array(
+                'id' => 5,
+                'type' => 'link',
+                'name' => 'Logout');
+        }
+        View::share('_menu', (object) $data_menu);
     }
 
 }
