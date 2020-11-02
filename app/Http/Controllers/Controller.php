@@ -99,7 +99,7 @@ class Controller extends BaseController {
             }
 
             $param4 = [
-                'uri' => config('app.base_api_uri') . '/fetch/content?token=' . SesLibrary::_get('_token') . '&page=1&total=1&keyword=1',
+                'uri' => config('app.base_api_uri') . '/fetch/content?&page=1&total=1&keyword=category_name&values=homepage&token=' . SesLibrary::_get('_token'),
                 'method' => 'GET'
             ];
             $home_about = $this->__init_request_api($param4);
