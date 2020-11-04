@@ -161,20 +161,11 @@
             //main function to initiate the module
             init: function () {
                 fnToaStr('Global js successfully load', 'success', {timeOut: 2000});
-                playLoadingAnimation('.loading');
                 $(document).scroll(function () {
                     if ($(document).scrollTop() > 200) {
                         $('.navbar').css('opacity', '0.7');
                     } else {
                         $('.navbar').css('opacity', '1');
-                    }
-                });
-                
-                $('li.is-vis').on('click', function(){
-                    console.log('clickkkk');
-                    var key = $(this).data('key');
-                    if(key === 5){
-                        window.location.href = _config_base_url + '/logout';
                     }
                 });
             }

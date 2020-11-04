@@ -11,7 +11,7 @@ namespace App\Http\Controllers\Frontend\Settings;
 use App\Http\Controllers\Controller;
 use App\Http\Libraries\Session_Library AS SesLibrary;
 use App\Traits\Api;
-use App\Http\Middleware\OrenoAuth;
+use Illuminate\Http\Request;
 
 /**
  * Description of UserController
@@ -45,13 +45,13 @@ class UserController extends Controller {
         return view($this->_config_path_layout . 'Global.index', $data);
     }
 
-    public function beranda() {
+    public function beranda(Request $request) {
         $data['title_for_layout'] = 'Selamat datang di dasawisma Kota Bogor Kecamatan Bogor Timur';
         $data['page'] = 'dashboard-user';
 
         //report-types
         $param_type = [
-            'uri' => config('app.base_api_uri') . '/fetch/report-types?page=1&total=25&token=' . SesLibrary::_get('_token'),
+            'uri' => config('app.base_api_uri') . '/fetch/report-types?page=1&total=25&keyword=all&token=' . $request->session()->get('_token_api'),
             'method' => 'GET'
         ];
         $types = $this->__init_request_api($param_type);
@@ -61,7 +61,7 @@ class UserController extends Controller {
 
         //report-level
         $param_level = [
-            'uri' => config('app.base_api_uri') . '/fetch/report-level?page=1&total=25&token=' . SesLibrary::_get('_token'),
+            'uri' => config('app.base_api_uri') . '/fetch/report-level?page=1&total=25&keyword=all&token=' . $request->session()->get('_token_api'),
             'method' => 'GET'
         ];
         $level = $this->__init_request_api($param_level);
@@ -71,7 +71,7 @@ class UserController extends Controller {
 
         //provinces
         $param_provinces = [
-            'uri' => config('app.base_api_uri') . '/fetch/provinces?page=1&total=25&token=' . SesLibrary::_get('_token'),
+            'uri' => config('app.base_api_uri') . '/fetch/provinces?page=1&total=25&keyword=all&token=' . $request->session()->get('_token_api'),
             'method' => 'GET'
         ];
         $provinces = $this->__init_request_api($param_provinces);
@@ -81,10 +81,10 @@ class UserController extends Controller {
         return view($this->_config_path_layout . 'Global.index', $data);
     }
 
-    public function about() {
+    public function about(Request $request) {
         $data['title_for_layout'] = 'Welcome to orenoproject.com';
         $param = [
-            'uri' => config('app.base_api_uri') . '/fetch/content?page=1&total=25&token=' . SesLibrary::_get('_token'),
+            'uri' => config('app.base_api_uri') . '/fetch/content?page=1&total=25&token=' . $request->session()->get('_token_api'),
             'method' => 'GET'
         ];
         $carousel = $this->__init_request_api($param);
@@ -108,11 +108,11 @@ class UserController extends Controller {
     //    return view($this->_config_path_layout . 'Dup.index', $data);
     //}
 
-    public function detail($id) {
+    public function detail(Request $request, $id) {
         $data['title_for_layout'] = 'Selamat datang di dasawisma Kota Bogor Kecamtan Bogor Timur';
         if ($id) {
             $param = [
-                'uri' => config('app.base_api_uri') . '/find/content?id=' . $id . '&token=' . SesLibrary::_get('_token'),
+                'uri' => config('app.base_api_uri') . '/find/content?id=' . $id . '&token=' . $request->session()->get('_token_api'),
                 'method' => 'GET'
             ];
             $detail = $this->__init_request_api($param);
@@ -124,14 +124,36 @@ class UserController extends Controller {
         return view($this->_config_path_layout . 'Dup.index', $data);
     }
 
-    public function logout() {
-        OrenoAuth::logout();
+    public function save_token(Request $request) {
+        $token = $request->token;
+        if ($token) {
+            $param = [
+                'uri' => config('app.base_api_uri') . '/user-details?token=' . $token,
+                'method' => 'GET'
+            ];
+            $user = Api::__init_request_api($param);
+            $request->session()->put('_token_api', $token);
+            $request->session()->put('_is_logged_in', true);
+            $request->session()->put('_user_logged_in', $user->data);
+            $response_data = array('status' => 200, 'message' => 'Successfully login, user login new token acquired', 'data' => array('token' => $token));
+            return response()->json($response_data, 200);
+        } else {
+            $response_data = array('status' => 201, 'message' => 'Failed login', 'data' => array('token' => $token));
+            return response()->json($response_data, 200);
+        }
+    }
+
+    public function logout(Request $request) {
         $param = [
-            'uri' => config('app.base_api_uri') . '/drop-user-session?token=' . SesLibrary::_get('_token'),
+            'uri' => config('app.base_api_uri') . '/drop-user-session?token=' . $request->session()->get('_token_api'),
             'method' => 'GET'
         ];
         $this->__init_request_api($param);
-        SesLibrary::_get('_token');
+        if ($request->session()->get('_is_logged_in')) {
+            $request->session()->forget('_token_api');
+            $request->session()->put('_is_logged_in', false);
+        }
+        $request->session()->flush();
         return redirect()->route('/');
     }
 

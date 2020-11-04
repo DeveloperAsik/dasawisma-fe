@@ -21,7 +21,5 @@ Route::get('/tentang/{slug}', 'Frontend\Settings\UserController@about')->name('t
 //Route::get('/hubungi/{slug}', 'Frontend\Settings\UserController@contact')->name('hubungi');
 Route::get('/konten-detail/{id}', 'Frontend\Settings\UserController@detail')->name('konten-detail');
 
-
-//Route::post('/save-token', 'Backend\Settings\UserController@save_token')->name('save-token');
-Route::post('/save-token')->middleware('oreno.auth')->name('oreno.auth');
+Route::post('/save-token','Frontend\Settings\UserController@save_token')->name('save-token');
 Route::get('/logout', 'Frontend\Settings\UserController@logout')->name('logout');

@@ -9,12 +9,12 @@ trait Api {
 
     public $client = null;
 
-    public function __init_request_api($param = array()) { //$url, $method = 'GET', $token = null) {
+    public static function __init_request_api($param = array()) { //$url, $method = 'GET', $token = null) {
         if (is_array($param)) {
             $url = $param['uri'];
             $method = $param['method'];
 
-            $this->client = new Client();
+            $client = new Client();
             try {
                 $options = [
                     'setEncodingType' => false,
@@ -28,7 +28,7 @@ trait Api {
                     $body = ['body' => \GuzzleHttp\json_encode($param['body'])];
                     $options = array_merge($options, $body);
                 }
-                $response = $this->client->request($method, $url, $options);
+                $response = $client->request($method, $url, $options);
                 $results = json_decode($response->getBody());
             } catch (RequestException $e) {
                 $results['data'] = [];

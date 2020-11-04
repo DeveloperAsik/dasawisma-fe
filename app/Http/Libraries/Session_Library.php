@@ -7,6 +7,7 @@
  */
 
 namespace App\Http\Libraries;
+
 use App\Http\Libraries\Tools_Library;
 
 /**
@@ -59,13 +60,15 @@ class Session_Library {
 
     public static function _remove($keyword = null) {
         if ($keyword != null)
-            unset($keyword);
+            unset($_SESSION[$keyword]);
         else
             return false;
     }
 
     public static function _destroy() {
-        session_destroy();
+        if (isset($_SESSION) && !empty($_SESSION)) {
+            session_destroy();
+        }
     }
 
 }

@@ -1038,7 +1038,8 @@
             $(".side-nav li, .outer-nav li").click(function () {
                 
                 var key = $(this).data('key');
-                if(key === 5){
+                var typeLink = $(this).data('type');
+                if(key === 5 && typeLink === 'link2'){
                     window.location.href = _config_base_url + '/logout';
                 }
                 if (!$(this).hasClass("is-active")) {

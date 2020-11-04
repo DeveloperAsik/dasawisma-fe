@@ -23,8 +23,8 @@ class Controller extends BaseController {
 
     public function __construct(Request $request) {
         $this->initVar($request);
-        $this->initAuth();
-        $this->initRoute($request);
+        $this->initAuth($request);
+        //dd($request->session()->all());
     }
 
     public function initVar($request) {
@@ -59,47 +59,39 @@ class Controller extends BaseController {
             }
         }
 
-        if (!SesLibrary::_get('_uuid') || SesLibrary::_get('_uuid') == null) {
-            SesLibrary::_set('_uuid', uniqid());
+        if (!$request->session()->get('_uuid') || $request->session()->get('_uuid') == null) {
+            $request->session()->put('_uuid', uniqid());
         }
-        if (!SesLibrary::_get('_token') || SesLibrary::_get('_token') == null) {
+        if (!$request->session()->get('_token_api') || $request->session()->get('_token_api') == null) {
             //request token
-            $token = $this->generate_token();
-            if ($token && $token->status == 200) {
-                SesLibrary::_set('_token', $token->data->token);
-            }
+            $this->generate_token_api($request);
         } else {
             $param2 = [
-                'uri' => config('app.base_api_uri') . '/validate-token?token=' . SesLibrary::_get('_token'),
+                'uri' => config('app.base_api_uri') . '/validate-token?token=' . $request->session()->get('_token_api'),
                 'method' => 'GET'
             ];
-            if (SesLibrary::_get('_is_logged_in')) {
-                $validate_token = $this->__init_request_api($param2);
-                if ($validate_token->status == 200 && $validate_token->data->valid == false) {
-                    $param = [
-                        'uri' => config('app.base_api_uri') . '/drop-user-session?token=' . SesLibrary::_get('_token'),
-                        'method' => 'GET'
-                    ];
-                    $this->__init_request_api($param);
-                    $token = $this->generate_token();
-                    SesLibrary::_set('_token', uniqid());
-                    SesLibrary::_destroy();
-                }
+            $validate_token_api = $this->__init_request_api($param2);
+            if ($validate_token_api->status == 200 && $validate_token_api->data->valid == false) {
+                $param = [
+                    'uri' => config('app.base_api_uri') . '/drop-user-session?token=' . $request->session()->get('_token_api'),
+                    'method' => 'GET'
+                ];
+                $this->__init_request_api($param);
+                $this->generate_token_api($request);
             }
         }
-        if (SesLibrary::_get('_token')) {
-            View::share('_token', SesLibrary::_get('_token'));
+        if ($request->session()->get('_token_api')) {
+            View::share('_token_api', $request->session()->get('_token_api'));
             $param3 = [
-                'uri' => config('app.base_api_uri') . '/fetch/about?token=' . SesLibrary::_get('_token'),
+                'uri' => config('app.base_api_uri') . '/fetch/about?token=' . $request->session()->get('_token_api'),
                 'method' => 'GET'
             ];
             $about = $this->__init_request_api($param3);
             if ($about->status == 200) {
                 View::share('_about', $about->data);
             }
-
             $param4 = [
-                'uri' => config('app.base_api_uri') . '/fetch/content?&page=1&total=1&keyword=category_name&values=homepage&token=' . SesLibrary::_get('_token'),
+                'uri' => config('app.base_api_uri') . '/fetch/content?&page=1&total=1&keyword=category_name&values=homepage&token=' . $request->session()->get('_token_api'),
                 'method' => 'GET'
             ];
             $home_about = $this->__init_request_api($param4);
@@ -109,45 +101,38 @@ class Controller extends BaseController {
         }
 
         //init menu value for global's layout
-        $this->_menu();
+        $this->_menu($request);
     }
 
-    public function initRoute($request = null) {
-        if ($request != null && $request->getRequestUri() == '/beranda' && SesLibrary::_get('_token')) {
-            return true;
-        } else {
-            return redirect()->route('/');
-        }
-    }
-
-    public function generate_token() {
+    public function generate_token_api($request) {
         $param = [
             'uri' => config('app.base_api_uri') . '/generate-token-access?deviceid=' . SesLibrary::_get('_uuid'),
             'method' => 'GET'
         ];
         $token = $this->__init_request_api($param);
         if ($token && $token->status == 200) {
-            SesLibrary::_set('_token', $token->data->token);
+            $request->session()->put('_token_api', $token->data->token);
         }
     }
 
-    public function initAuth() {
-        if (!SesLibrary::_get('_uuid') || SesLibrary::_get('_uuid') == null) {
-            SesLibrary::_set('_uuid', uniqid());
+    public function initAuth($request) {
+        
+        if (!$request->session()->get('_uuid') || $request->session()->get('_uuid') == null) {
+            $request->session()->put('_uuid', uniqid());
         }
-        if (SesLibrary::_get('_is_logged_in')) {
-            View::share('_is_logged_in', SesLibrary::_get('_is_logged_in'));
+        if ($request->session()->get('_is_logged_in')) {
+            View::share('_is_logged_in', $request->session()->get('_is_logged_in'));
         }
-        if (SesLibrary::_get('_token')) {
-            View::share('_token', SesLibrary::_get('_token'));
+        if ($request->session()->get('_token_api')) {
+            View::share('_token_api', $request->session()->get('_token_api'));
         }
         $param = [
-            'uri' => config('app.base_api_uri') . '/is-logged-in?token=' . SesLibrary::_get('_token'),
+            'uri' => config('app.base_api_uri') . '/is-logged-in?token=' . $request->session()->get('_token_api'),
             'method' => 'GET'
         ];
         $is_logged_in = $this->__init_request_api($param);
         if ($is_logged_in->status == 200) {
-            SesLibrary::_set('_is_logged_in', $is_logged_in->data->logged_in);
+            $request->session()->put('_is_logged_in', $is_logged_in->data->logged_in);
             View::share('_is_logged_in', $is_logged_in->data->logged_in);
         }
     }
@@ -170,7 +155,7 @@ class Controller extends BaseController {
         }
     }
 
-    public function _menu() {
+    public function _menu($request) {
         $data_menu = array(
             array(
                 'id' => 1,
@@ -203,10 +188,10 @@ class Controller extends BaseController {
                 'name' => 'Login'
             )
         );
-        if (SesLibrary::_get('_token')) {
+        if ($request->session()->get('_is_logged_in') == true) {
             $data_menu[5] = array(
                 'id' => 5,
-                'type' => 'link',
+                'type' => 'link2',
                 'name' => 'Logout');
         }
         View::share('_menu', (object) $data_menu);

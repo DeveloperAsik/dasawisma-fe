@@ -7,7 +7,7 @@
                 @else
                     @php $active = ''; @endphp
                 @endif
-                <li class="{{$active}}" data-key="{{ $key }}" ><span>{{$value['name']}}</span></li>
+                <li class="{{$active}}" data-key="{{ $key }}" data-type="{{$value['type']}}" ><span>{{$value['name']}}</span></li>
             @endforeach
         @endif
     @elseif($page == 'about')
@@ -19,5 +19,6 @@
         <li><span>Lihat data </span></li>
         <li><span>Unduh Laporan</span></li>
         <li><span>Profile</span></li>
+        <li data-key="5" data-type="link2"><span>Logout</span></li>
     @endif
 </ul>

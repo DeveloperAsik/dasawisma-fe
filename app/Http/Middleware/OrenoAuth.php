@@ -24,16 +24,18 @@ class OrenoAuth {
 
     public function handle($request, Closure $next) {
         $token = $request->token;
-        if (empty(SesLibrary::_get('_token')) || SesLibrary::_get('_token') == null || SesLibrary::_get('_token') == '') {
+        if (empty($token) || $token == null || $token == '') {
             $token = OrenoAuth::init_token(SesLibrary::_get('_token'));
+            SesLibrary::_set('_is_logged_in', true);
             $response_data = array('status' => 200, 'message' => 'Successfully login, user login new token acquired', 'data' => array('token' => $token));
             return response()->json($response_data, 200);
             //return response(['successfully login'],200);
             //return $next(json_encode());
         } else {
-            SesLibrary::_destroy();
-            SesLibrary::_remove('_token');
-            $token = OrenoAuth::init_token(SesLibrary::_get('_token'));
+            $token = OrenoAuth::init_token($token);
+            dd($token);
+            SesLibrary::_set('_is_logged_in', true);
+            $token = SesLibrary::_get('all');
             $response_data = array('status' => 200, 'message' => 'Successfully login, user login re-activated ', 'data' => array('token' => $token));
             return response()->json($response_data, 200);
         }

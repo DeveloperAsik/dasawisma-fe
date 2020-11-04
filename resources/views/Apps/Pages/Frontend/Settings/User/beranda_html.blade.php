@@ -25,9 +25,9 @@
                                         <select>
                                             <option>-- pilih satu --</option>
                                             @if($types)
-                                            @foreach($types AS $key => $values)
-                                            <option value="{{ $values->id}}">{{ $values->name}}</option>
-                                            @endforeach
+                                                @foreach($types AS $key => $values)
+                                                    <option value="{{ $values->id}}">{{ $values->name}}</option>
+                                                @endforeach
                                             @endif
                                         </select>
                                         <span class="info-password"></span>
@@ -37,9 +37,9 @@
                                         <select>
                                             <option>-- pilih satu --</option>
                                             @if($level)
-                                            @foreach($level AS $key => $values)
-                                            <option value="{{ $values->id}}">{{ $values->name}}</option>
-                                            @endforeach
+                                                @foreach($level AS $key => $values)
+                                                    <option value="{{ $values->id}}">{{ $values->name}}</option>
+                                                @endforeach
                                             @endif
                                         </select>
                                         <span class="info-password"></span>
