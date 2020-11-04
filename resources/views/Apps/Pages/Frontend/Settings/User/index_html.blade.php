@@ -99,7 +99,7 @@
                     <div class="modal--options">
                         <form class="request-contact-form">
                             <div class="information-email">
-                                <label for="email">Surel</label><br/>
+                                <label for="email">Surel/Surat elektronik</label><br/>
                                 <input id="email" type="email" spellcheck="false" />
                             </div><br/>
                             <div class="information-name">
@@ -123,7 +123,7 @@
     </li>
     <li class="l-section section">
         <div class="hire">
-            <h2>You want us to do</h2>
+            <h2>Informasi Umum</h2>
             <!-- checkout formspree.io for easy form setup -->
             <form class="work-request">
                 <div class="work-request--options">
@@ -136,7 +136,7 @@
                             <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
                             </g>
                             </svg>
-                            App Design
+                            Kependudukan
                         </label>
                         <input id="opt-2" type="checkbox" value="graphic design" />
                         <label for="opt-2">
@@ -146,7 +146,7 @@
                             <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
                             </g>
                             </svg>
-                            Graphic Design
+                            Laporan kejadian
                         </label>
                         <input id="opt-3" type="checkbox" value="motion design">
                         <label for="opt-3">
@@ -156,7 +156,7 @@
                             <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
                             </g>
                             </svg>
-                            Motion Design
+                            Kader dasawisma
                         </label>
                     </span>
                     <span class="options-b">
@@ -168,7 +168,7 @@
                             <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
                             </g>
                             </svg>
-                            UX Design
+                            Dasar Hukum
                         </label>
                         <input id="opt-5" type="checkbox" value="webdesign">
                         <label for="opt-5">
@@ -178,7 +178,7 @@
                             <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
                             </g>
                             </svg>
-                            Webdesign
+                            Peraturan
                         </label>
                         <input id="opt-6" type="checkbox" value="marketing">
                         <label for="opt-6">
@@ -188,11 +188,11 @@
                             <path d="M950,705L555,310L360,505C253,612,160,700,155,700c-6,0-44-34-85-75l-75-75l278-278L550-5l475,475c261,261,475,480,475,485c0,13-132,145-145,145C1349,1100,1167,922,950,705z"/>
                             </g>
                             </svg>
-                            Marketing
+                            Dasawisma
                         </label>
                     </span>
                 </div>
-                <div class="work-request--information">
+                <!--<div class="work-request--information">
                     <div class="information-name">
                         <input id="name" type="text" spellcheck="false">
                         <label for="name">Name</label>
@@ -202,7 +202,7 @@
                         <label for="email">Email</label>
                     </div>
                 </div>
-                <input type="submit" value="Send Request" />
+                <input type="submit" value="Send Request" />-->
             </form>
         </div>
     </li>
