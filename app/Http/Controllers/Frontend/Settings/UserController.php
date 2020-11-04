@@ -23,11 +23,11 @@ class UserController extends Controller {
     //put your code here
     use Api;
 
-    public function index() {
+    public function index(Request $request) {
         $data['title_for_layout'] = 'Selamat datang di dasawisma Kota Bogor Kecamtan Bogor Timur';
         $data['page'] = 'home';
         $param = [
-            'uri' => config('app.base_api_uri') . '/fetch/content?page=1&total=25&token=' . SesLibrary::_get('_token'),
+            'uri' => config('app.base_api_uri') . '/fetch/content?page=1&total=15&keyword=category_name&value=carousel&token=' . $request->session()->get('_token_api'),
             'method' => 'GET'
         ];
         $carousel = $this->__init_request_api($param);

@@ -1016,7 +1016,7 @@
         $(this).on("mousewheel DOMMouseScroll", function (e) {
             if (!$(".outer-nav").hasClass("is-vis")) {
                 e.preventDefault();
-                console.log(e);
+                //console.log(e);
                 var i = e.originalEvent.wheelDelta ? -e.originalEvent.wheelDelta : 20 * e.originalEvent.detail;
                 i > 50 && o
                     ? ((o = !1),
