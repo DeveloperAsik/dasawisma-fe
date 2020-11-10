@@ -7,7 +7,7 @@
                         <h3>Buat Laporan Kejadian</h3>
                     </div>
                     <div class="modal--options">
-                        <form class="request-contact-form">
+                        <form class="form-submit-report">
                             <div class="col col-md-12">
                                 <div class="tab">
                                     <button class="tablinks" data-id="page1" id="defaultOpen" >Judul Laporan</button>
@@ -17,32 +17,32 @@
                                 <div id="page1" class="tabcontent">
                                     <div class="col col-md-12">
                                         <label for="name">Judul Laporan</label><br/>
-                                        <input id="fname" type="text" name="userid" spellcheck="false">
-                                        <span class="info-userid"></span>
+                                        <input type="text" name="title" spellcheck="true">
+                                        <span class="info-title"></span>
                                     </div>
                                     <div class="information-name col col-md-4">
-                                        <label for="name">Tipe</label><br/>
-                                        <select>
+                                        <label for="type">Tipe</label><br/>
+                                        <select name="type" class="type">
                                             <option>-- pilih satu --</option>
                                             @if($types)
-                                                @foreach($types AS $key => $values)
-                                                    <option value="{{ $values->id}}">{{ $values->name}}</option>
-                                                @endforeach
+                                            @foreach($types AS $key => $values)
+                                            <option value="{{ $values->id}}">{{ $values->name}}</option>
+                                            @endforeach
                                             @endif
                                         </select>
-                                        <span class="info-password"></span>
+                                        <span class="info-type"></span>
                                     </div>
                                     <div class="information-name col col-md-4">
                                         <label for="name">Level</label><br/>
-                                        <select>
+                                        <select name="level" class="level">
                                             <option>-- pilih satu --</option>
                                             @if($level)
-                                                @foreach($level AS $key => $values)
-                                                    <option value="{{ $values->id}}">{{ $values->name}}</option>
-                                                @endforeach
+                                            @foreach($level AS $key => $values)
+                                            <option value="{{ $values->id}}">{{ $values->name}}</option>
+                                            @endforeach
                                             @endif
                                         </select>
-                                        <span class="info-password"></span>
+                                        <span class="info-level"></span>
                                     </div>
                                 </div>
                                 <div id="page2" class="tabcontent">
@@ -51,9 +51,9 @@
                                         <select name="province" class="province">
                                             <option value="0">-- pilih satu --</option>
                                             @if($provinces)
-                                                @foreach($provinces AS $key => $values)
-                                                    <option value="{{ $values->id}}">{{ $values->name}}</option>
-                                                @endforeach
+                                            @foreach($provinces AS $key => $values)
+                                            <option value="{{ $values->id}}">{{ $values->name}}</option>
+                                            @endforeach
                                             @endif
                                         </select>
                                         <span class="info-password"></span>
@@ -89,16 +89,16 @@
                                 </div>
                                 <div id="page3" class="tabcontent">
                                     <div class="col col-md-12">
-                                        <label for="name">Alamat lengkap Kejadian</label><br/>
-                                        <textarea cols="40"></textarea>
-                                        <span class="info-password"></span>
-                                    </div>
-                                    
-                                    <div class="col col-md-12">
                                         <label for="name">Deskripsi</label><br/>
-                                        <textarea id="ckeditor" rows="10"></textarea>
-                                        <span class="info-password"></span>
+                                        <textarea name="description" class="description"  rows="6"></textarea>
+                                        <span class="info-description"></span>
                                     </div>
+                                    <div class="col col-md-12">
+                                        <label for="name">Informasi tambahan</label><br/>
+                                        <textarea name="additional" class="additional" cols="40"></textarea>
+                                        <span class="info-additional"></span>
+                                    </div>
+
                                 </div>
                             </div>
                             <div class="information-name col col-md-12">
@@ -118,24 +118,34 @@
                         <h3>Pencarian Laporan Kejadian</h3>
                     </div>
                     <div class="modal--options">
-                        <form class="request-contact-form">
-                            <div class="information-name">
-                                <label for="name">Surel/ID Kader/Nama Pengguna</label><br/>
-                                <input id="fname" type="text" name="userid" spellcheck="false">
-                                <span class="info-userid"></span>
-                            </div><br/>
-                            <div class="information-name">
-                                <label for="name">Kata Sandi</label><br/>
-                                <input id="password" name="password" type="text" spellcheck="false">
-                                <span class="info-password"></span>
-                            </div><br/> 
-                            <div class="information-name">
-                                <label for="name">Masukkan Ulang Kata Sandi</label><br/>
-                                <input id="repassword" name="password2" type="text" spellcheck="false">
-                                <span class="info-password2"></span>
-                            </div><br/> 
-                            <button type="submit" style="color:#282828;width:150px;">Simpan</button>
-                        </form>
+                        <table id="datatable_ajax" class="cell-border" style="width:100%">
+                            <thead>
+                                <tr>
+                                    <th width="2%">
+                                        <div class="form-group form-md-checkboxes">
+                                            <div class="md-checkbox-list">
+                                                <div class="md-checkbox">
+                                                    <input type="checkbox" id="select_all" name="select_all" class="md-check">
+                                                    <label for="select_all">
+                                                        <span></span>
+                                                        <span class="check" style="left:20px;"></span>
+                                                        <span class="box" style="left:14px;"></span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <th>No</th>
+                                    <th>Judul</th>
+                                    <th>Deskripsi</th>
+                                    <th>Informasi Tambahan</th>
+                                    <th>Posyandu</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
                     </div>
                 </div>
             </div>

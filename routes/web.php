@@ -23,3 +23,7 @@ Route::get('/konten-detail/{id}', 'Frontend\Settings\UserController@detail')->na
 
 Route::post('/save-token','Frontend\Settings\UserController@save_token')->name('save-token');
 Route::get('/logout', 'Frontend\Settings\UserController@logout')->name('logout');
+
+
+
+Route::post('/incidents/get_list', 'Api\IncidentsController@get_list')->name('get_list_incidents');

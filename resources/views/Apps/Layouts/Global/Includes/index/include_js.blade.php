@@ -12,6 +12,9 @@
 <script src="<?php echo $_path_libs . '/toastr/build/toastr.min.js'; ?>"></script>
 <script src="<?php echo $_path_libs . '/bodymovin/5.6.5/lottie.js'; ?>"></script>
 <script src="<?php echo $_path_libs . '/ckeditor/ckeditor.js'; ?>"></script>
+
+<script src="<?php echo $_path_libs . '/datatables/datatables.min.js'; ?>"></script>
+
 <!-- END PAGE LEVEL PLUGINS -->
 <!--render global variable from session's-->
 <script>
@@ -40,10 +43,10 @@
 <?php else: ?>
         var _config_img_url = '';
 <?php endif; ?>
-<?php if (isset($_token) && !empty($_token)) : ?>
-        var _token = '<?php echo $_token; ?>';
+<?php if (isset($_token_api) && !empty($_token_api)) : ?>
+        var _token_api = '<?php echo $_token_api; ?>';
 <?php else: ?>
-        var _token = '';
+        var _token_api = '';
 <?php endif; ?>
 <?php if (isset($_is_logged_in) && !empty($_is_logged_in)) : ?>
         var _is_logged_in = '<?php echo $_is_logged_in; ?>';

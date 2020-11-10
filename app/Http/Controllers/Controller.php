@@ -24,7 +24,6 @@ class Controller extends BaseController {
     public function __construct(Request $request) {
         $this->initVar($request);
         $this->initAuth($request);
-        //dd($request->session()->all());
     }
 
     public function initVar($request) {
