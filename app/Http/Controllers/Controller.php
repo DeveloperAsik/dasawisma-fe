@@ -42,7 +42,6 @@ class Controller extends BaseController {
                 $this->{$key} = $values;
             }
         }
-
         if ($conf['CONFIG']) {
             foreach ($conf['CONFIG'] AS $key => $values) {
                 /*
@@ -119,15 +118,13 @@ class Controller extends BaseController {
         if (!$request->session()->get('_uuid') || $request->session()->get('_uuid') == null) {
             $request->session()->put('_uuid', uniqid());
         }
-        if ($request->session()->get('_is_logged_in')) {
-            View::share('_is_logged_in', $request->session()->get('_is_logged_in'));
-        }
         if ($request->session()->get('_token_api')) {
             View::share('_token_api', $request->session()->get('_token_api'));
         }
         $param = [
-            'uri' => config('app.base_api_uri') . '/is-logged-in?token=' . $request->session()->get('_token_api'),
-            'method' => 'GET'
+            'uri' => config('app.base_api_uri') . '/is-logged-in',
+            'method' => 'GET',
+            'header' => ['token' => $request->session()->get('_token_api')]
         ];
         $is_logged_in = $this->__init_request_api($param);
         if ($is_logged_in->status == 200) {

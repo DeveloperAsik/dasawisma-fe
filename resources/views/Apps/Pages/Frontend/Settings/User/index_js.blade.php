@@ -6,6 +6,26 @@
                 console.log('index js successfully load');
                 $('form.request-contact-form').on('submit', function (e) {
                     e.preventDefault();
+                    var email = $('input[name="email"]').val();
+                    if (email === '') {
+                        $('.info-email').html('<p style="color:red">mohon isi surel anda di kolom ini...</p>');
+                        return false;
+                    }
+                    var uri = _config_api_base_url + '/transmit/contact-us';
+                    var type = 'POST';
+                    var data = {
+                        email: email,
+                        fname: $('input[name="fname"]').val(),
+                        lname: $('input[name="lname"]').val(),
+                        content: $('textarea[name="content"]').val()
+                    };
+                    var result = fnAjaxSend(data, uri, type, {'token':_token_api}, false);
+                    if (result.responseJSON && result.responseJSON.status === 200) {
+                        
+                    }
+                });
+                $('form.request-login-form').on('submit', function (e) {
+                    e.preventDefault();
                     var user_id = $('input[name="userid"]').val();
                     var pass = $('input[name="password"]').val();
                     var pass2 = $('input[name="password2"]').val();
@@ -45,8 +65,6 @@
                             }, 2500);
                             return false;
                         }
-                    } else {
-                        return false;
                     }
                 });
 

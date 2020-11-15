@@ -100,21 +100,22 @@
                         <form class="request-contact-form">
                             <div class="information-email">
                                 <label for="email">Surel/Surat elektronik</label><br/>
-                                <input id="email" type="email" spellcheck="false" />
+                                <input id="email" name="email" type="email" spellcheck="false" />
+                                <span class="info-email"></span>
                             </div><br/>
                             <div class="information-name">
                                 <label for="name">Nama Depan</label><br/>
-                                <input id="fname" type="text" spellcheck="false">
+                                <input id="fname" name="fname" type="text" spellcheck="false">
                             </div><br/>
                             <div class="information-name">
                                 <label for="name">Nama Belakang</label><br/>
-                                <input id="lname" type="text" spellcheck="false">
+                                <input id="lname" name="lname" type="text" spellcheck="false">
                             </div><br/> 
                             <div class="information-name">
                                 <label for="name">Pesan,Saran atau Kritik Anda</label><br/>
                                 <textarea rows="4" name="content"></textarea>
                             </div><br/> 
-                            <button type="submit" style="color:#282828">Submit</button>
+                            <button type="submit" style="color:#282828;width:150px;">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -215,7 +216,7 @@
                         <small>Dasawisma kecamatan Bogor Timur</small>
                     </div>
                     <div class="modal--options">
-                        <form class="request-contact-form">
+                        <form class="request-login-form">
                             <div class="information-name">
                                 <label for="name">Surel/ID Kader/Nama Pengguna</label><br/>
                                 <input id="fname" type="text" name="userid" spellcheck="false">
